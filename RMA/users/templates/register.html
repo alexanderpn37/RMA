@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro - Sistema RMA{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: #2c3e50;">
+                    <h4>Registro</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'register' %}">
+                        {% csrf_token %}
+                        <!-- Displaying messages -->
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                                    {{ message }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <!-- First Name Field -->
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" required>
+                        </div>
+
+                        <!-- Last Name Field -->
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" required>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+
+                        <!-- Password Confirmation Field -->
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn text-white w-100" style="background-color: #2c3e50;">Register</button>
+                    </form>
+
+                    <!-- Login Redirect Link -->
+                    <div class="mt-3 text-center">
+                        <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

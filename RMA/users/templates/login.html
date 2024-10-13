@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Sistema RMA{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: #2c3e50;">
+                    <h4>Login</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Formulario de Login -->
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <!-- Displaying messages -->
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                                    {{ message }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn text-white w-100" style="background-color: #2c3e50;">Login</button>
+                    </form>
+
+                    <!-- Link a la página de registro -->
+                    <div class="mt-3 text-center">
+                        <p>¿No tienes una cuenta? <a href="{% url 'register' %}">Regístrate aquí</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+<!-- dashboard/templates/dashboard/dashboard.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Sistema RMA{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">Dashboard</h1>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body">
+                <h5>Total de Clientes</h5>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white mb-4">
+            <div class="card-body">
+                <h5>Total de Órdenes de Reparación</h5>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <!-- Agrega más tarjetas según necesites -->
+</div>
+{% endblock %}
