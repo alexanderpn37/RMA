@@ -6,6 +6,7 @@
     {% load static %}
     <!-- Incluir Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Enlace al archivo CSS global -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
@@ -17,9 +18,20 @@
         <div id="page-content-wrapper">
             <!-- Barra de navegación superior -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <!-- Botón de Logout -->
+                <div class="navbar-brand">
+                    <!-- Mostrar el nombre y apellido guardados en la sesión si la sesión está activa -->
+                    {% if request.session.user_id %}
+                        Hola, {{ request.session.first_name }} {{ request.session.last_name }}
+                    {% endif %}
+                </div>
+                <!-- Botón de Logout o placeholder -->
                 <div class="ml-auto">
-                    <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+                    {% if request.session.user_id %}
+                        <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+                    {% else %}
+                        <!-- Placeholder que mantiene el espacio -->
+                        <div style="width: 100px; height: 38px;"></div>
+                    {% endif %}
                 </div>
             </nav>
             <div class="container-fluid">

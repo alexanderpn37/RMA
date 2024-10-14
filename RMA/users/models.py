@@ -1,6 +1,7 @@
 import bcrypt
 from django.contrib import messages
 from django.db import models
+from datetime import datetime
 import re
 
 
@@ -9,8 +10,11 @@ class User(models.Model):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     password = models.CharField(max_length=255)
+    role = models.CharField(max_length=100, default="admin")
     created_at = models.DateTimeField(auto_now_add=True)  # Establece la fecha al crear el registro
     updated_at = models.DateTimeField(auto_now=True)
+    status = models.IntegerField(default=1) #status , 1 is for active, 0 for inactive and 2 is for pending users
+
 
 
     # Método para verificar la contraseña durante el login
@@ -50,6 +54,7 @@ class User(models.Model):
         hashed_pw = bcrypt.hashpw(new_password.encode(), bcrypt.gensalt()).decode()
         user = cls.objects.get(id=user_id)
         user.password = hashed_pw
+        user.updated_at = datetime.now()
         user.save()
     
     @classmethod

@@ -4,12 +4,22 @@
     <div class="list-group list-group-flush">
         <a href="{% url 'dashboard_view' %}" class="list-group-item list-group-item-action">Dashboard</a>
         <a class="list-group-item list-group-item-action">Clientes</a>
+        {% if request.session.role == "admin" %}
         <a class="list-group-item list-group-item-action">Equipos</a>
+        {% endif %}
         <a class="list-group-item list-group-item-action">Órdenes de Reparación</a>
+        {% if request.session.role == "admin" %}
         <a class="list-group-item list-group-item-action">Técnicos</a>
+        {% endif %}
+        {% if request.session.role == "admin" %}
         <a class="list-group-item list-group-item-action">Inventario</a>
+        {% endif %}
         <a class="list-group-item list-group-item-action">Servicios en Sitio</a>
+        {% if request.session.role == "admin" %}
         <a class="list-group-item list-group-item-action">Reportes</a>
-        <a class="list-group-item list-group-item-action">Users</a>
+        {% endif %}
+        {% if request.session.role == "admin" %}
+        <a href="{% url 'users_list' %}"class="list-group-item list-group-item-action">Users</a>
+        {% endif %}
     </div>
 </div>
