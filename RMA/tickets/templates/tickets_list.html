@@ -1,0 +1,70 @@
+<!-- tickets/templates/tickets/tickets_list.html -->
+
+{% extends 'base.html' %}
+{% block title %}Repair Orders - RMA System{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Repair Orders</h1>
+    {% if messages %}
+        <div class="alert alert-info">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- Button to create a new ticket -->
+    <div class="mb-3">
+        <a href="{% url 'verificar_cliente' %}" class="btn btn-primary">Create Ticket</a>
+    </div>
+
+    <!-- Ticket table -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Client</th>
+                <th>Equipment</th>
+                <th>Status</th>
+                <th>Technician</th>
+                <th>Creation Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.cliente.first_name }} {{ ticket.cliente.last_name }}</td>
+                    <td>
+                        {% if ticket.modelo %}
+                            {{ ticket.modelo.marca.nombre }} {{ ticket.modelo.nombre }}
+                        {% else %}
+                            Not specified
+                        {% endif %}
+                    </td>
+                    <td>{{ ticket.estado }}</td>
+                    <td>
+                        {% if ticket.tecnico %}
+                            {{ ticket.tecnico.first_name }} {{ ticket.tecnico.last_name }}
+                        {% else %}
+                            Not assigned
+                        {% endif %}
+                    </td>
+                    <td>{{ ticket.created_at|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        <a href="{% url 'detalle_ticket' ticket.id %}" class="btn btn-sm btn-info">View Details</a>
+                        {% if request.session.role == 'admin' or request.session.role == 'tecnico' %}
+                            <a href="{% url 'asignar_tecnico' ticket.id %}" class="btn btn-sm btn-secondary">Assign Technician</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7">No tickets available.</td>
+                </tr>
+            {% endfor %}
+{% endblock %}

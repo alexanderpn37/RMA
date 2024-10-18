@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Editar Cliente - Sistema RMA{% endblock %}
+{% block title %}Edit Client - RMA System{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Editar Cliente</h1>
+    <h1 class="mb-4">Edit Client</h1>
 
     {% if messages %}
         <div class="alert alert-info">
@@ -19,24 +19,24 @@
     <form method="POST">
         {% csrf_token %}
         
-        <!-- Campos del cliente -->
+        <!-- Client fields -->
         <div class="form-group">
             <label for="rif">RIF</label>
             <input type="text" id="rif" name="rif" class="form-control" value="{{ cliente.rif }}" required>
         </div>
 
         <div class="form-group">
-            <label for="razon_social">Razón Social</label>
+            <label for="razon_social">Company Name</label>
             <input type="text" id="razon_social" name="razon_social" class="form-control" value="{{ cliente.razon_social }}" required>
         </div>
 
         <div class="form-group">
-            <label for="first_name">Nombre</label>
+            <label for="first_name">First Name</label>
             <input type="text" id="first_name" name="first_name" class="form-control" value="{{ cliente.first_name }}" required>
         </div>
 
         <div class="form-group">
-            <label for="last_name">Apellido</label>
+            <label for="last_name">Last Name</label>
             <input type="text" id="last_name" name="last_name" class="form-control" value="{{ cliente.last_name }}" required>
         </div>
 
@@ -46,25 +46,25 @@
         </div>
 
         <div class="form-group">
-            <label for="telefono">Teléfono</label>
+            <label for="telefono">Phone</label>
             <input type="text" id="telefono" name="telefono" class="form-control" value="{{ cliente.telefono }}" required>
         </div>
 
         <div class="form-group">
-            <label for="direccion">Dirección</label>
+            <label for="direccion">Address</label>
             <textarea id="direccion" name="direccion" class="form-control" rows="3" required>{{ cliente.direccion }}</textarea>
         </div>
 
-        <!-- Botones de acción -->
+        <!-- Action buttons -->
         <div class="d-flex justify-content-between">
-            <!-- Botón para actualizar -->
+            <!-- Button to update -->
             <button type="submit" class="btn btn-success">
-                <i class="fas fa-save"></i> Guardar Cambios
+                <i class="fas fa-save"></i> Save Changes
             </button>
 
-            <!-- Botón para regresar a la lista -->
+            <!-- Button to return to the list -->
             <a href="{% url 'clientes_list' %}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Volver
+                <i class="fas fa-arrow-left"></i> Back
             </a>
         </div>
     </form>

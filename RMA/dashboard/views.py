@@ -1,13 +1,27 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
+from tickets.models import Ticket
+from clientes.models import Clientes
 
 def dashboard_view(request):
-    user_id = request.session.get('user_id')
-    if not user_id:
-        # El usuario no está autenticado
-        messages.error(request, "Must be loged in.")
+    # Verificar si el usuario está autenticado
+    if 'user_id' not in request.session:
         return redirect('login')
-    else:
-        # El usuario está autenticado
-        # Aquí puedes agregar la lógica adicional que necesites
-        return render(request, 'dashboard.html')
+
+    # Obtener las estadísticas utilizando los métodos del modelo
+    total_clientes = Clientes.total_clientes()
+    total_tickets = Ticket.total_tickets()
+    tickets_en_proceso = Ticket.total_en_proceso()
+    tickets_pendientes = Ticket.total_pendientes()
+    tickets_sin_tecnico = Ticket.total_sin_tecnico()
+    tickets_completados_30_dias = Ticket.total_completados_ultimos_30_dias()
+
+    context = {
+        'total_clientes': total_clientes,
+        'total_tickets': total_tickets,
+        'tickets_en_proceso': tickets_en_proceso,
+        'tickets_pendientes': tickets_pendientes,
+        'tickets_sin_tecnico': tickets_sin_tecnico,
+        'tickets_completados_30_dias': tickets_completados_30_dias,
+    }
+
+    return render(request, 'dashboard.html', context)

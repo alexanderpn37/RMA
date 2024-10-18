@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Enter Equipment Details - RMA System{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Enter Equipment Details</h1>
+    <!-- Progress Bar -->
+    <div class="progress mb-4">
+        <div class="progress-bar" role="progressbar" style="width: 75%;">Step 3 of 4</div>
+    </div>
+    <p><strong>Selected Brand:</strong> {{ marca.nombre }}</p>
+    {% if messages %}
+        <div class="alert alert-info">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="modelo">Model:</label>
+            <select name="modelo" id="modelo" class="form-control" required>
+                <option value="">Select a model...</option>
+                {% for modelo in modelos %}
+                    <option value="{{ modelo.id }}">{{ modelo.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="numero_serie">Serial Number:</label>
+            <input type="text" name="numero_serie" id="numero_serie" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="descripcion_problema">Problem Description:</label>
+            <textarea name="descripcion_problema" id="descripcion_problema" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Ticket</button>
+    </form>
+</div>
+{% endblock %}

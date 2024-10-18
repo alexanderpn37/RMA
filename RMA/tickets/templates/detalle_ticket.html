@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Ticket Details - RMA System{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Ticket #{{ ticket.id }}</h1>
+    <!-- Progress Bar -->
+    <div class="progress mb-4">
+        <div class="progress-bar" role="progressbar" style="width: 100%;">Step 4 of 4</div>
+    </div>
+    {% if messages %}
+        <div class="alert alert-info">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Client:</strong> {{ ticket.cliente.first_name }} {{ ticket.cliente.last_name }}</p>
+            {% if ticket.modelo %}
+                <p><strong>Equipment:</strong> {{ ticket.modelo.marca.nombre }} {{ ticket.modelo.nombre }}</p>
+            {% else %}
+                <p><strong>Equipment:</strong> Not specified</p>
+            {% endif %}
+            <p><strong>Serial Number:</strong> {{ ticket.numero_serie }}</p>
+            <p><strong>Problem Description:</strong> {{ ticket.descripcion_problema }}</p>
+            <p><strong>Status:</strong> {{ ticket.estado }}</p>
+            {% if ticket.tecnico %}
+                <p><strong>Assigned Technician:</strong> {{ ticket.tecnico.first_name }} {{ ticket.tecnico.last_name }}</p>
+            {% else %}
+                <p><strong>Assigned Technician:</strong> Not assigned</p>
+            {% endif %}
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

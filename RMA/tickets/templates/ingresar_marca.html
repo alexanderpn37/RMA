@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Select Brand - RMA System{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Select Brand</h1>
+    <!-- Progress Bar -->
+    <div class="progress mb-4">
+        <div class="progress-bar" role="progressbar" style="width: 50%;">Step 2 of 4</div>
+    </div>
+    {% if messages %}
+        <div class="alert alert-info">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="marca">Brand:</label>
+            <select name="marca" id="marca" class="form-control" required>
+                <option value="">Select a brand...</option>
+                {% for marca in marcas %}
+                    <option value="{{ marca.id }}">{{ marca.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Continue</button>
+    </form>
+</div>
+{% endblock %}

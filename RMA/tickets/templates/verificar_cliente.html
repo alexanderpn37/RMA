@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Verify Client - RMA System{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Verify Client</h1>
+    <!-- Progress Bar -->
+    <div class="progress mb-4">
+        <div class="progress-bar" role="progressbar" style="width: 25%;">Step 1 of 4</div>
+    </div>
+    {% if messages %}
+        <div class="alert alert-info">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="criterio_busqueda">RIF, Email or Phone:</label>
+            <input type="text" name="criterio_busqueda" id="criterio_busqueda" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search Client</button>
+    </form>
+</div>
+{% endblock %}

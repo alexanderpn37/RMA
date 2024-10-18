@@ -2,50 +2,50 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Sistema RMA{% endblock %}</title>
+    <title>{% block title %}RMA System{% endblock %}</title>
     {% load static %}
-    <!-- Incluir Bootstrap CSS -->
+    <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Enlace al archivo CSS global -->
+    <!-- Link to the global CSS file -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <div class="d-flex" id="wrapper">
-        <!-- Barra de navegación lateral -->
+        <!-- Sidebar navigation -->
         {% include 'navbar.html' %}
-        <!-- Contenido principal -->
+        <!-- Main content -->
         <div id="page-content-wrapper">
-            <!-- Barra de navegación superior -->
+            <!-- Top navigation bar -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="navbar-brand">
-                    <!-- Mostrar el nombre y apellido guardados en la sesión si la sesión está activa -->
+                    <!-- Show the first and last name stored in the session if the session is active -->
                     {% if request.session.user_id %}
-                        Hola, {{ request.session.first_name }} {{ request.session.last_name }}
+                        Hello, {{ request.session.first_name }} {{ request.session.last_name }}
                     {% endif %}
                 </div>
-                <!-- Botón de Logout o placeholder -->
+                <!-- Logout button or placeholder -->
                 <div class="ml-auto">
                     {% if request.session.user_id %}
                         <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
                     {% else %}
-                        <!-- Placeholder que mantiene el espacio -->
+                        <!-- Placeholder to maintain spacing -->
                         <div style="width: 100px; height: 38px;"></div>
                     {% endif %}
                 </div>
             </nav>
             <div class="container-fluid">
                 {% block content %}
-                <!-- Contenido específico de cada página -->
+                <!-- Page-specific content -->
                 {% endblock %}
             </div>
         </div>
     </div>
-    <!-- Incluir jQuery y Bootstrap JS -->
+    <!-- Include jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <!-- Incluir Popper.js -->
+    <!-- Include Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Incluir Bootstrap JS -->
+    <!-- Include Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

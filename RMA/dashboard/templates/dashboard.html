@@ -2,27 +2,64 @@
 
 {% extends 'base.html' %}
 
-{% block title %}Dashboard - Sistema RMA{% endblock %}
+{% block title %}Dashboard - RMA System{% endblock %}
 
 {% block content %}
 <h1 class="mt-4">Dashboard</h1>
 <div class="row">
+    <!-- Card: Total Clients -->
     <div class="col-md-4">
         <div class="card bg-primary text-white mb-4">
             <div class="card-body">
-                <h5>Total de Clientes</h5>
-                <p></p>
+                <h5>Total Clients</h5>
+                <p>{{ total_clientes }}</p>
             </div>
         </div>
     </div>
+    <!-- Card: Total Repair Orders -->
     <div class="col-md-4">
         <div class="card bg-success text-white mb-4">
             <div class="card-body">
-                <h5>Total de Órdenes de Reparación</h5>
-                <p></p>
+                <h5>Total Repair Orders</h5>
+                <p>{{ total_tickets }}</p>
             </div>
         </div>
     </div>
-    <!-- Agrega más tarjetas según necesites -->
+    <!-- Card: Tickets In Process -->
+    <div class="col-md-4">
+        <div class="card bg-warning text-white mb-4">
+            <div class="card-body">
+                <h5>Tickets In Process</h5>
+                <p>{{ tickets_en_proceso }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Card: Pending Tickets -->
+    <div class="col-md-4">
+        <div class="card bg-danger text-white mb-4">
+            <div class="card-body">
+                <h5>Pending Tickets</h5>
+                <p>{{ tickets_pendientes }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Card: Tickets Without Assigned Technician -->
+    <div class="col-md-4">
+        <div class="card bg-secondary text-white mb-4">
+            <div class="card-body">
+                <h5>Tickets Without Assigned Technician</h5>
+                <p>{{ tickets_sin_tecnico }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Card: Tickets Completed in the Last 30 Days -->
+    <div class="col-md-4">
+        <div class="card bg-info text-white mb-4">
+            <div class="card-body">
+                <h5>Tickets Completed in the Last 30 Days</h5>
+                <p>{{ tickets_completados_30_dias }}</p>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

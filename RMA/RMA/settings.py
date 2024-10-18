@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-mk6td*k(k&_=4zsk^cimhdj7h(5sy#bke^a)t*7&*%7tcn(pj2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'clientes.apps.ClientesConfig',
     'users.apps.UsersConfig',
     'dashboard.apps.DashboardConfig',
+    'items.apps.ItemsConfig',
+    'tickets.apps.TicketsConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +83,7 @@ WSGI_APPLICATION = 'RMA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rma_db',
+        'NAME': 'mfrma_db',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost', 

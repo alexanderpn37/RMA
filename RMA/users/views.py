@@ -17,7 +17,7 @@ def login_view(request):
             request.session['last_name'] = user.last_name
             request.session['status'] = user.status
             request.session['role'] = user.role
-            return redirect('dashboard_view')  # Redirect to the dashboard or desired page
+            return redirect('dashboard_view')  
         else:
             if user and user.status != 1:
                 messages.error(request, "User is inactive.")
@@ -34,45 +34,44 @@ def logout_view(request):
     return redirect('login')  # Redirect to login page
 
 def register_view(request):
-    if request.method == 'POST':
-        data = {
-            'email': request.POST['email'],
-            'first_name': request.POST['first_name'],
-            'last_name': request.POST['last_name'],
-            'password': request.POST['password'],
-            'password_confirmation': request.POST['password_confirmation']
-        }
-        
-        # Validate the data before proceeding
-        if not User.validate(data, request):
-            return redirect('register')
-        # Create a new user
-        hashed_password = bcrypt.hashpw(data['password'].encode(), bcrypt.gensalt()).decode()
-        
-        # Create a new instance of User
-        new_user = User(
-            email=data['email'],
-            first_name=data['first_name'],
-            last_name=data['last_name'],
-            password=hashed_password
-        )
-        new_user.save()  # Save the User object to the database
-        
-        messages.success(request, "User registered successfully!")
-        return redirect('login')  # Redirect after creation
-        
-    return render(request, 'register.html')
+    
+        if request.method == 'POST':
+            data = {
+                'email': request.POST['email'],
+                'first_name': request.POST['first_name'],
+                'last_name': request.POST['last_name'],
+                'password': request.POST['password'],
+                'password_confirmation': request.POST['password_confirmation']
+            }
+            
+            # Validate the data before proceeding
+            if not User.validate(data, request):
+                return redirect('register')
+            # Create a new user
+            hashed_password = bcrypt.hashpw(data['password'].encode(), bcrypt.gensalt()).decode()
+            
+            # Create a new instance of User
+            new_user = User(
+                email=data['email'],
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+                password=hashed_password
+            )
+            new_user.save()  # Save the User object to the database
+            
+            messages.success(request, "User registered successfully!")
+            return redirect('login')  # Redirect after creation
+        return render(request, 'register.html') # Redirect to register    
+    
 
 def users_list_view(request):
     # Check if the user has an active status in the session and is an admin
-    if request.session.get('status') != 1 or request.session.get('role') != 'admin':
+    if not 'user_id' in request.session or request.session.get('status') != 1 or request.session.get('role') != 'admin':
         messages.error(request, "You don't have permission to access this page.")
-        print(request.session.get('status'))
-        print(request.session.get('role'))
         return redirect('login')
-
-    users = User.get_all()  # Retrieve all users
-    return render(request, 'user_list.html', {'users': users})
+    else:
+        users = User.get_all()  # Retrieve all users
+        return render(request, 'user_list.html', {'users': users})
 
 # View to update a user's status
 def update_user_status_view(request, user_id, status):
@@ -114,3 +113,5 @@ def edit_user_view(request, user_id):
         return redirect('users_list')
 
     return render(request, 'edit_user.html', {'user': user})
+def no_permission_view(request):
+    return render(request, 'no_permission.html')

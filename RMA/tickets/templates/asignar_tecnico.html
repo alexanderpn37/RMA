@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Assign Technician - RMA System{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Update Ticket #{{ ticket.id }}</h1>
+    {% if messages %}
+        <div class="alert alert-info">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="tecnico">Assign Technician:</label>
+            <select name="tecnico" id="tecnico" class="form-control">
+                <option value="">Select a technician...</option>
+                {% for tecnico in tecnicos %}
+                    <option value="{{ tecnico.id }}" {% if ticket.tecnico == tecnico %}selected{% endif %}>{{ tecnico.first_name }} {{ tecnico.last_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="estado">Status:</label>
+            <select name="estado" id="estado" class="form-control">
+                {% for estado_opcion in estados %}
+                    <option value="{{ estado_opcion }}" {% if ticket.estado == estado_opcion %}selected{% endif %}>{{ estado_opcion }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="{% url 'detalle_ticket' ticket.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

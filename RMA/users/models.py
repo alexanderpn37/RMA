@@ -81,7 +81,13 @@ class User(models.Model):
     def validate_email(cls, email):
         email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
         return re.match(email_regex, email)
+    @classmethod
+    def get_techs(cls):
+        return cls.objects.filter(role='tecnico', status=1).order_by('first_name')
 
+    @classmethod
+    def get_user_by_id(cls, user_id):
+        return cls.objects.get(id=user_id)
     
     
 
