@@ -32,10 +32,9 @@ def ingresar_marca_view(request, cliente_rif):
         else:
             messages.error(request, "Please select a brand.")
     else:
-        marcas = Marca.get_all()  # change here
+        marcas = Marca.get_all()  
     return render(request, 'ingresar_marca.html', {'marcas': marcas})
 
-# I stopped here, I need to create a temporary ticket and pass it, and at the end, I'll save it ------------------------------------------------  
 
 def ingresar_equipo_view(request, cliente_rif):
     
