@@ -33,7 +33,8 @@ def ingresar_marca_view(request, cliente_rif):
             messages.error(request, "Please select a brand.")
     else:
         marcas = Marca.get_all()  
-    return render(request, 'ingresar_marca.html', {'marcas': marcas})
+        cliente=Clientes.get_clientes_by_rif(cliente_rif)
+    return render(request, 'ingresar_marca.html', {'marcas': marcas, 'cliente':cliente})
 
 
 def ingresar_equipo_view(request, cliente_rif):
@@ -70,7 +71,7 @@ def ingresar_equipo_view(request, cliente_rif):
         messages.success(request, f"Ticket #{ticket.id} created successfully.")
         return redirect('detalle_ticket', ticket_id=ticket.get_last_ticket())
     modelos = Modelo.get_modelo_by_marca(marca=marca)
-    return render(request, 'ingresar_equipo.html', {'marca': marca, 'modelos': modelos})
+    return render(request, 'ingresar_equipo.html', {'marca': marca, 'modelos': modelos, 'cliente_rif': cliente_rif})
 
 def detalle_ticket_view(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)

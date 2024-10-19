@@ -8,7 +8,11 @@ def modelos_list_view(request):
     return render(request, 'modelos_list.html', {'modelos': modelos})
 
 # View to create a new model
-def create_modelo_view(request):
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Marca, Modelo
+
+def create_modelo_view(request, cliente_rif=None):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         marca_id = request.POST.get('marca')
@@ -36,6 +40,7 @@ def create_modelo_view(request):
                     'marcas': Marca.get_all(),
                     'nombre': nombre,
                     'nueva_marca': nueva_marca,
+                    'cliente_rif': cliente_rif,  # Pass cliente_rif to the template
                 })
 
         # If an existing brand was selected or the new one has been confirmed, proceed with model creation
@@ -49,11 +54,23 @@ def create_modelo_view(request):
         Modelo.create_modelo(nombre=nombre, marca=marca)
 
         messages.success(request, 'Model successfully created.')
-        return redirect('modelos_list')
+
+        # Redirect based on whether cliente_rif is provided
+        if cliente_rif:
+            if request.method == 'POST':
+                return redirect('ingresar_marca', cliente_rif=cliente_rif)
+            else:
+                return redirect('create_modelo_from_ticket', cliente_rif=cliente_rif)
+        else:
+            return redirect('modelos_list')
 
     # If it's a GET request, display the form
     marcas = Marca.get_all()
-    return render(request, 'create_modelo.html', {'marcas': marcas})
+    return render(request, 'create_modelo.html', {
+        'marcas': marcas,
+        'cliente_rif': cliente_rif,  # Pass cliente_rif to the template
+    })
+
 
 # View to edit an existing model
 def edit_modelo_view(request, modelo_id):
@@ -95,3 +112,4 @@ def delete_modelo_view(request, modelo_id):
         messages.error(request, "Model not found.")
     
     return redirect('modelos_list')
+

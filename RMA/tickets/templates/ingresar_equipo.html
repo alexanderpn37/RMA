@@ -28,6 +28,8 @@
                     <option value="{{ modelo.id }}">{{ modelo.nombre }}</option>
                 {% endfor %}
             </select>
+            <!-- Button to add new model -->
+            <a href="{% url 'create_modelo_from_ticket' cliente_rif %}" class="btn btn-secondary mt-2">Add New Model</a>
         </div>
         <div class="form-group">
             <label for="numero_serie">Serial Number:</label>

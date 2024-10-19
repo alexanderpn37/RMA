@@ -8,6 +8,7 @@
     <div class="progress mb-4">
         <div class="progress-bar" role="progressbar" style="width: 50%;">Step 2 of 4</div>
     </div>
+    
     {% if messages %}
         <div class="alert alert-info">
             <ul>
@@ -17,17 +18,42 @@
             </ul>
         </div>
     {% endif %}
+    
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
-            <label for="marca">Brand:</label>
-            <select name="marca" id="marca" class="form-control" required>
+            <!-- Client Info Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5>Client Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Name:</strong> {{ cliente.first_name }}</p>
+                            <p><strong>Last Name:</strong> {{ cliente.last_name }}</p>
+                            <p><strong>Email:</strong> {{ cliente.email }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Phone:</strong> {{ cliente.telefono }}</p>
+                            <p><strong>Address:</strong> {{ cliente.direccion }}</p>
+                            <p><strong>RIF:</strong> {{ cliente.rif }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Brand Selection -->
+            <label for="marca" class="form-label">Brand:</label>
+            <select name="marca" id="marca" class="form-select" required>
                 <option value="">Select a brand...</option>
                 {% for marca in marcas %}
                     <option value="{{ marca.id }}">{{ marca.nombre }}</option>
                 {% endfor %}
             </select>
         </div>
+        
+        <!-- Submit Button -->
         <div class="mt-4">
             <button type="submit" class="btn btn-primary">Continue</button>
         </div>
