@@ -1,5 +1,6 @@
 README
-Getting Started
+
+**Getting Started**
 Welcome to the Repair Ticket Management System! To begin using the system, follow these steps:
 
 Register: First, you need to create an account by registering in the system.
