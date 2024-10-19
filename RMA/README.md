@@ -1,8 +1,9 @@
 README
-Getting Started
+
+**Getting Started**
 Welcome to the Repair Ticket Management System! To begin using the system, follow these steps:
 
-Register: First, you need to create an account by registering in the system.
+**Register:** First, you need to create an account by registering in the system.
 Login: After registering, you can log in with your credentials to access the dashboard and other sections.
 System Overview
 The system consists of several key sections: Dashboard, Users, Clients, Items, and Repair Orders. Each section serves a specific purpose in managing repair tickets and related data.
